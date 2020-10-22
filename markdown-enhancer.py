@@ -45,24 +45,26 @@ for line in infile:
     heading_number = ""
     for index,sn in enumerate(section_numbers):
         heading_number += str(sn)
-        if index != len(section_numbers) - 1:
-            heading_number += "."
+        #if index != len(section_numbers) - 1:
+        heading_number += "."
     ########### END Build heading number string ############
 
-    heading_with_number = heading_number + ") " + line[heading_level:].strip()
+    heading_body = line[heading_level:].strip()
+
     
     toc_line = ""
 
-    if current_level != heading_level:
-        toc_line += "\n"
+    #if current_level != heading_level:
+    #    toc_line += "\n"
 
-    toc_line += "* " * heading_level + heading_with_number + "\n"
+    #toc_line += "* " * heading_level + ") " + heading_with_number + "\n"
+    toc_line += "- " * heading_level + " " + heading_number + ") "  + heading_body + "\n"
 
     
     toc.append(toc_line)
     
     
-    lines_out.append(("#" * heading_level) + " " + heading_with_number + "\n")
+    lines_out.append(("#" * heading_level) + " " + heading_number + " " + heading_body + "\n")
 
     
 
