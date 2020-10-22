@@ -43,9 +43,9 @@ for line in infile:
 
     ########### BEGIN Build heading number string ############
     heading_number = ""
-    for sn in section_numbers:
+    for index,sn in enumerate(section_numbers):
         heading_number += str(sn)
-        if sn != section_numbers[-1]:
+        if index != len(section_numbers) - 1:
             heading_number += "."
     ########### END Build heading number string ############
 
