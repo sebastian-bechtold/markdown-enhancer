@@ -11,8 +11,11 @@ toc = []
 section_numbers = []
 
 for line in infile:
+    
+    # Drop comments:
+    if line.strip()[:2] == "//":        
+        continue
 
-    current_level = len(section_numbers)
 
     ######### BEGIN Figure out heading level of current line #########
     heading_level = 0
@@ -27,6 +30,8 @@ for line in infile:
     if heading_level == 0:
         lines_out.append(line)
         continue
+
+    current_level = len(section_numbers)
 
     if heading_level > current_level:
         section_numbers.append(0)
