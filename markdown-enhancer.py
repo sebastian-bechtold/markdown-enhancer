@@ -4,20 +4,15 @@
 
 import sys
 
-
 infile = open(sys.argv[1], "r")
 
-
-
 lines_out = []
-
 toc = []
-
 section_numbers = []
 
-current_level = 0
-
 for line in infile:
+
+    current_level = len(section_numbers)
 
     ######### BEGIN Figure out heading level of current line #########
     heading_level = 0
@@ -39,7 +34,7 @@ for line in infile:
         section_numbers.pop()
         
     section_numbers[-1] += 1
-    current_level = heading_level
+    
 
     ########### BEGIN Build heading number string ############
     heading_number = ""
@@ -49,11 +44,22 @@ for line in infile:
             heading_number += "."
     ########### END Build heading number string ############
 
-    heading_with_number = heading_number + ")" + line[heading_level:]
-    toc.append(heading_with_number)
+    heading_with_number = heading_number + ") " + line[heading_level:].strip()
+    
+    toc_line = ""
+
+    if current_level != heading_level:
+        toc_line += "\n"
+
+    toc_line += "* " * heading_level + heading_with_number + "\n"
+
+    
+    toc.append(toc_line)
     
     
     lines_out.append(("#" * heading_level) + " " + heading_with_number + "\n")
+
+    
 
 
 with open(sys.argv[2], "w") as outfile:
@@ -62,6 +68,6 @@ with open(sys.argv[2], "w") as outfile:
         if line.strip() == "%%TOC%%":
             outfile.write("# Table of Contents" + "\n")
             for tocline in toc:
-                outfile.write(tocline.strip() + "\n\n")
+                outfile.write(tocline)
         else:
             outfile.write(line)
