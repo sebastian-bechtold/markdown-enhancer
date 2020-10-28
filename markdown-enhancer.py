@@ -2,7 +2,16 @@
 # https://github.com/sebastian-bechtold
 # Last change: 2020-10-22
 
-import sys
+import sys, re
+
+def make_anchor_link(text):
+    
+    text = re.sub(r'[^A-Za-z0-9- ]+', '', text)
+    text = text.replace(" ", "-")
+    text = text.lower()
+
+    return text
+
 
 infile = open(sys.argv[1], "r")
 
@@ -57,8 +66,9 @@ for line in infile:
     #if current_level != heading_level:
     #    toc_line += "\n"
 
-    #toc_line += "* " * heading_level + ") " + heading_with_number + "\n"
-    toc_line += "- " * heading_level + " " + heading_number + ") "  + heading_body + "\n"
+    
+    #toc_line += "- " * heading_level + " " + heading_number + ") "  + heading_body + "\n"
+    toc_line += "- " * heading_level + " " + heading_number + ") "  + "[" + heading_body + "](#" + make_anchor_link(heading_number + " " + heading_body) + ")\n"
 
     
     toc.append(toc_line)
