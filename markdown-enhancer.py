@@ -70,7 +70,7 @@ for line in infile:
     #toc_line += "- " * heading_level + " " + heading_number + ") "  + heading_body + "\n"
 
     # Create GitHub-style anchor links:
-    toc_line += "- " * heading_level + " " + heading_number + ") "  + "[" + heading_body + "](#" + make_anchor_link(heading_number + " " + heading_body) + ")\n"
+    toc_line += "  " * heading_level + "- " + heading_number + ") "  + "[" + heading_body + "](#" + make_anchor_link(heading_number + " " + heading_body) + ")\n"
 
     
     toc.append(toc_line)
